@@ -198,6 +198,12 @@ class Client(ClientWithProject):
         self._location = location
         self._default_query_job_config = copy.deepcopy(default_query_job_config)
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.close()
+
     @property
     def location(self):
         """Default location for jobs / datasets / tables."""
